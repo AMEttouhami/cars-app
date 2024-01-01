@@ -3,7 +3,7 @@
 import streamlit as st
 import pandas as pd
 import pickle
-
+from datetime import datetime
 
 
 st.write("""
@@ -49,19 +49,22 @@ def user_input_features():
 
     mileage = st.sidebar.slider('Mileage', 0, 500000, 20000)
 
-    hp = st.sidebar.slider('HP', 0,800,150)
+    #hp = st.sidebar.slider('HP', 0,800,150)
+    hp = 200
 
 
     
 
-    data = {'make': make,
-            'model': model,
+    data = {'mileage': mileage,
             'hp': hp,
             'year':year,
+            'make': make,
+            'model': model,
             'fuel': fuel,
-            'gear': gear,
-            'mileage': mileage}
+            'gear': gear
+            }
     
+    # index = [0] or index=[1] just initializes the index that shows next to the line of data
     #features = pd.DataFrame(data, index=[0])
     features = pd.DataFrame(data, index=[1])
 
@@ -70,9 +73,21 @@ def user_input_features():
 X_test = user_input_features()
 
 st.subheader('Here is the information you entered:')
-st.write(X_test)
+st.write(X_test.drop(columns=['hp']))
 
-X_test['age'] = 2022 - X_test['year']
+
+
+
+# Create a new column: 'age'
+X_test['age'] = datetime.now().year - X_test['year']
+
+# Drop the 'year' column and re-order the columns in the correct order that fits the training data pipeline
+X_test = X_test.drop('year', axis=1)
+X_test = X_test[['mileage','hp','age','make','model','fuel','gear']]
+
+# These two lines are for debugging purposes
+#st.subheader('Re-display Xtest:')
+#st.write(X_test)
 
 
 # Load the saved pickled model
