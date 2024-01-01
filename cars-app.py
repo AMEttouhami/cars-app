@@ -1,7 +1,8 @@
+# Updated version - Dec 31 2023
+
 import streamlit as st
 import pandas as pd
 import pickle
-
 
 
 
@@ -60,6 +61,7 @@ def user_input_features():
             'fuel': fuel,
             'gear': gear,
             'mileage': mileage}
+    
     #features = pd.DataFrame(data, index=[0])
     features = pd.DataFrame(data, index=[1])
 
