@@ -36,16 +36,20 @@ def user_input_features():
             ('A 180', 'B 180', 'C 180', 'C 200', 'C 220', 'E 200', 'E 220', 'Vito'))
 
     else:
+        # Note: There is no Jetta in the selection sidebar b/c there were very few Jettas in the dataset
+        # All data about Jetta was removed when the dataset was restricted to makes and models with more
+        # than 100 data points
         model = st.sidebar.selectbox('Model',
-            ('Caddy','Golf', 'Jetta', 'Passat', 'Polo', 'Tiguan', 'Touran', 'Sharan'))
+            ('Caddy','Golf', 'Passat', 'Polo', 'Tiguan', 'Touran'))
 
     
 
     fuel = st.sidebar.selectbox('Fuel',
             ('Gasoline', 'Diesel', 'Hybrid: Gas-electric', 'Electric'))
 
+    # For simplicity, kept only the manual and automatic options
     gear = st.sidebar.selectbox('Gear',
-            ('Manual', 'Semi-automatic', 'Automatic'))
+            ('Manual', 'Automatic'))
 
     mileage = st.sidebar.slider('Mileage', 0, 500000, 20000)
 
